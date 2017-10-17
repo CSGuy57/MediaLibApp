@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         Book book2 = new Book("ReadY Player One");
 
         outputText.append("SONGS:\n");
-        outputText.append(song1.getTitle() + "\n");
+        outputText.append(song1.getTitle() + "\n"); 
         outputText.append(song2.getTitle() + "\n");
         outputText.append("\n");
 
