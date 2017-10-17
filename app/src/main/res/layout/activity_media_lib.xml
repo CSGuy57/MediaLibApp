@@ -28,13 +28,8 @@
         android:onClick="showMedia"
         />
 
-    <TextView
-        android:id="@+id/mediaLibText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text=""
-        android:textSize="20sp"
-        android:textStyle="bold"
-        />
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@android:id/list"></ListView>
 </LinearLayout>
