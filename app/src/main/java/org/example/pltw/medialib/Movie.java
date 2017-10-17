@@ -20,7 +20,7 @@ public class Movie
 
     public Movie(String title){
         this.rating = 0;
-        this.title = "";
+        this.title = title;
         this.duration = 0;
     }
 

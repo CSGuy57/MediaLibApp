@@ -1,11 +1,12 @@
 package org.example.pltw.medialib;
 
+import android.app.ListActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MediaLibActivity extends ListActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         Book book2 = new Book("ReadY Player One");
 
         outputText.append("SONGS:\n");
-        outputText.append(song1.getTitle() + "\n"); 
+        outputText.append(song1.getTitle() + "\n");
         outputText.append(song2.getTitle() + "\n");
         outputText.append("\n");
 
