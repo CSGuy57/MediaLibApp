@@ -3,44 +3,59 @@ package org.example.pltw.medialib;
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MediaLibActivity extends ListActivity {
+    private Song[] songs = {
+            new Song("The Twist", .99, 1),
+            new Song("Smooth", .99, 2),
+            new Song("Mack The Knife", .99, 3),
+            new Song("How Do I Live", .99, 4),
+            new Song("Party Rock Anthem", .99, 5),
+            new Song("I Gotta Feeling", .99, 6),
+            new Song("Macarena", .99, 7),
+            new Song("Physical", .99, 8),
+            new Song("You Light Up My Lift", .99, 9),
+            new Song("Hey Jude", .99, 10)
+    };
+
+    private ListView songListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_media_lib);
 
-        TextView welcomeText = (TextView) findViewById(R.id.welcomeTextView);
-    }
+        for (Song s : songs) {
+            MediaFile.writeString(s.getTitle() + "|" + s.getRating());
+        }
 
-    /**
-     * This method is called when the Show Contents button is clicked
-     **/
-    public void showMedia(View v) {
+        MediaFile.saveAndClose();
 
-        TextView outputText = (TextView) findViewById(R.id.mediaLibText);
+        ArrayList<Song> songsArrayList = new ArrayList<>();
 
-        Song song1 = new Song("The Twist", 1.29, 3);
-        Song song2 = new Song("Smooth", .99, 5);
-        Movie movie1 = new Movie("Almost Famous");
-        Movie movie2 = new Movie("The Matrix");
-        Book book1 = new Book("Count of Monte Cristo");
-        Book book2 = new Book("ReadY Player One");
+        String songInfo = MediaFile.readString();
+        while (songInfo != null) {
+            Song s = new Song();
+            int indexOfPipe = songInfo.indexOf("|");
 
-        outputText.append("SONGS:\n");
-        outputText.append(song1.getTitle() + "\n");
-        outputText.append(song2.getTitle() + "\n");
-        outputText.append("\n");
+            s.setTitle(songInfo.substring(0, indexOfPipe));
+            s.setRating(
+                    Integer.parseInt(
+                            songInfo.substring(indexOfPipe + 1, songInfo.length())));
 
-        outputText.append("MOVIES:\n");
-        outputText.append(movie1.getTitle() + "\n");
-        outputText.append(movie2.getTitle() + "\n");
-        outputText.append("\n");
+            songsArrayList.add(s);
 
-        outputText.append("BOOKS:\n");
-        outputText.append(book1.getTitle() + "\n");
-        outputText.append(book2.getTitle() + "\n");
+            songInfo = MediaFile.readString();
+        }
+
+        MediaFile.saveAndClose();
+
+        SongListAdapter adapter = new SongListAdapter(this, songsArrayList);
+        setListAdapter(adapter);
     }
 }
